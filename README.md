@@ -11,7 +11,7 @@ The cookbook tries to install package dependencies.
 
 Usage
 -----
-#### nginx-wrapper::default
+#### rnginx::default
 
 e.g.
 Just include `rnginx` in your node's `run_list`:
