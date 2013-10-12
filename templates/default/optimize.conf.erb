@@ -1,0 +1,39 @@
+# General Options
+  ignore_invalid_headers   <%= node[:nginx][:ignore_invalid_headers] %>;
+  keepalive_requests       <%= node[:nginx][:keepalive_requests] %>;
+  recursive_error_pages    <%= node[:nginx][:recursive_error_pages] %>;
+  sendfile                 <%= node[:nginx][:sendfile] %>;
+  server_name_in_redirect  <%= node[:nginx][:server_name_in_redirect] %>;
+  server_tokens            <%= node[:nginx][:server_tokens] %>;
+
+# Timeouts 
+  keepalive_timeout     <%= node[:nginx][:keepalive_timeout] %>;
+  client_body_timeout   <%= node[:nginx][:client_body_timeout] %>;
+  client_header_timeout <%= node[:nginx][:client_header_timeout] %>;
+  send_timeout          <%= node[:nginx][:send_timeout] %>;
+
+# Compression
+  gzip              <%= node[:nginx][:gzip] %>;
+  gzip_proxied      <%= node[:nginx][:gzip_proxied] %>;
+  gzip_buffers      <%= node[:nginx][:gzip_buffers] %>;
+  gzip_comp_level   <%= node[:nginx][:gzip_comp_level] %>;
+  gzip_min_length   <%= node[:nginx][:gzip_min_length] %>;
+  gzip_vary         <%= node[:nginx][:gzip_vary] %>;
+  gzip_disable      <%= node[:nginx][:gzip_disable] %>;
+  gzip_types        <%= node[:nginx][:gzip_types].join(" ") %>
+
+# TCP Options
+  tcp_nodelay <%= node[:nginx][:tcp_nodelay] %>;
+  tcp_nopush  <%= node[:nginx][:tcp_nopush] %>;
+
+# Client request size limits
+# The collective values below takes notice of client request size and denies it if it deems it too much (Buffer overflow attacks)
+
+  client_body_buffer_size       <%= node[:nginx][:client_body_buffer_size] %>;
+  client_header_buffer_size     <%= node[:nginx][:client_header_buffer_size] %>;
+  client_max_body_size          <%= node[:nginx][:client_max_body_size] %>;
+
+  # This is for the number and request header sizes, respectively. Increase if you get errors.
+  # A 414 (request header too large) means the client is sending a request line bigger than the buffer
+  # A 400 (Bad Request) means a client is sending a header line of request bigger than the buffer
+  large_client_header_buffers <%= node[:nginx][:large_client_header_buffers] %>;
