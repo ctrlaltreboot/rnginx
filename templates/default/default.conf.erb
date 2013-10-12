@@ -1,0 +1,16 @@
+server {
+  listen <%= node[:nginx][:default_port] %>;
+
+  <% if node[:nginx][:server_name] %>
+  server_name <%= node[:nginx][:server_name].join(" ") %>;
+  <% end %>
+
+  access_log <%= node[:nginx][:install_dir] %>/logs/default.access.log main;
+  error_log <%= node[:nginx][:install_dir] %>/logs/default.error.log;
+
+  root <%= node[:nginx][:default_www_dir] %>;
+
+  location / {
+    root <%= node[:nginx][:default_www_dir] %>;
+  }
+}

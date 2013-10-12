@@ -1,0 +1,50 @@
+user <%= node[:nginx][:user] %>;
+worker_processes  <%= node[:nginx][:worker_processes] %>;
+
+error_log  logs/error.log;
+pid        /var/run/nginx.pid;
+
+worker_rlimit_nofile <%= node[:nginx][:worker_rlimit_nofile] %>;
+
+events {
+  worker_connections <%= node[:nginx][:worker_connections] %>;
+  <% if node[:nginx][:event] %>
+  use node[:nginx][:event]; 
+  <% end %>   
+}
+
+http {
+  include mime.types;
+
+  # Turn off global logging - use per site (virtual host) specific logging
+  access_log  off;
+
+  log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
+                    
+  log_format reverse_proxied '$http_x_real_ip - $remote_user [$time_local] '
+                             '"$request" $status $body_bytes_sent "$http_referer" '
+                             '"$http_user_agent" "$http_x_forwarded_for"';
+
+  # Add support long server names
+  server_names_hash_bucket_size <%= node[:nginx][:server_names_hash_bucket_size] %>;
+
+  <% if node[:nginx][:rate_limit] %>
+  # Rate limiting
+  limit_req_zone $binary_remote_addr zone=<%= node[:nginx][:rate_limit_zone] %>:<%= node[:nginx][:rate_limit_memory] %> rate=<%= node[:nginx][:rate_limit_rate] %>;
+  <% end %>
+
+  #_______________________________________________#
+  # -----> include directives after this line     #
+  #-----------------------------------------------#
+
+  # Put enhancements on conf.d
+  include conf.d/*;
+
+  # Put vhost files and host specific configs on vhost
+  include vhosts/*;
+
+  # end virtual hosting directives #
+
+}
