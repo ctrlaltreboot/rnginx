@@ -36,6 +36,7 @@ bash "compile nginx" do
   code <<-EOS
     cd #{nginx_local_dir} && ./configure #{nginx_compile_flags} #{nginx_modules} && make && make install
   EOS
+  not_if { node[:nginx][:reinstall] }
 end
 
 template "/etc/init.d/nginx" do
@@ -74,5 +75,5 @@ template "#{node[:nginx][:install_dir]}/conf/nginx.conf" do
   mode 00644
   owner "root"
   group "root"
-  notifies :restart, "service[nginx]", :immediately 
+  notifies :restart, "service[nginx]", :immediately
 end
