@@ -1,5 +1,5 @@
-default[:nginx][:reinstall] = nil
-default[:nginx][:version] = "1.4.2"
+default[:nginx][:reinstall] = false
+default[:nginx][:version] = "1.4.3"
 default[:nginx][:download_url] = "http://nginx.org/download/nginx-#{node[:nginx][:version]}.tar.gz"
 default[:nginx][:checksum] = "#{node[:nginx][:download_url]}.asc"
 default[:nginx][:user] = "www-data"
@@ -25,6 +25,3 @@ default[:nginx][:rate_limit] = nil
 default[:nginx][:rate_limit_zone] = nil
 default[:nginx][:rate_limit_memory] = nil
 default[:nginx][:rate_limit_rate] = nil
-
-default[:nginx][:port] = "80"
-default[:nginx][:server_name] = [ "localhost", "#{node[:fqdn]}" ]
