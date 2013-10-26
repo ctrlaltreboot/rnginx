@@ -1,5 +1,5 @@
 server {
-  listen <%= node[:nginx][:default_port] %>;
+  listen <%= node[:nginx][:port] %>;
 
   <% if node[:nginx][:server_name] %>
   server_name <%= node[:nginx][:server_name].join(" ") %>;
