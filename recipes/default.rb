@@ -36,7 +36,7 @@ bash "compile nginx" do
   code <<-EOS
     cd #{nginx_local_dir} && ./configure #{nginx_compile_flags} #{nginx_modules} && make && make install
   EOS
-  not_if { node[:nginx][:reinstall] }
+  not_if { node[:nginx][:no_recompile] }
 end
 
 template "/etc/init.d/nginx" do

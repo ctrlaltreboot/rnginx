@@ -1,4 +1,4 @@
-default[:nginx][:reinstall] = false
+default[:nginx][:no_recompile] = true
 default[:nginx][:version] = "1.4.3"
 default[:nginx][:download_url] = "http://nginx.org/download/nginx-#{node[:nginx][:version]}.tar.gz"
 default[:nginx][:checksum] = "#{node[:nginx][:download_url]}.asc"
