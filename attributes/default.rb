@@ -1,15 +1,17 @@
 default[:nginx][:no_recompile] = true
-default[:nginx][:version] = "1.4.3"
+default[:nginx][:version] = "1.6.0"
 default[:nginx][:download_url] = "http://nginx.org/download/nginx-#{node[:nginx][:version]}.tar.gz"
-default[:nginx][:checksum] = "#{node[:nginx][:download_url]}.asc"
+default[:nginx][:checksum] = node[:nginx][:download_url] + ".asc"
 default[:nginx][:user] = "www-data"
-default[:nginx][:install_dir] = "/opt/nginx-#{node[:nginx][:version]}"
+default[:nginx][:install_dir] = "/opt/nginx-" + node[:nginx][:version]
+
 default[:nginx][:compile_flags] = [
   "--prefix=#{node[:nginx][:install_dir]}",
   "--user=#{node[:nginx][:user]}",
   "--group=#{node[:nginx][:user]}",
   "--with-ipv6"
 ]
+
 default[:nginx][:modules] = [
   "--with-http_gzip_static_module",
   "--with-http_ssl_module",
