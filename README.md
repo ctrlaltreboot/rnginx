@@ -33,7 +33,3 @@ Contributing
 4. Write tests for your change (if applicable)
 5. Run the tests, ensuring they all pass
 6. Submit a Pull Request using Github
-
-License and Authors
--------------------
-Authors: ctrlaltreboot@gmail.com
